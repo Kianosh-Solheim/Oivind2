@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mannen som sluttet å eldes</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 text-gray-800">
+
+    <!-- Navigasjonsbar -->
+    <nav class="bg-gradient-to-r from-blue-700 to-blue-900 p-4 shadow-lg">
+        <div class="container mx-auto flex flex-wrap justify-center sm:justify-between items-center">
+            <h1 class="text-3xl font-extrabold text-white mb-2 sm:mb-0" id="app-title">
+                Mannen som sluttet å eldes
+            </h1>
+            <div class="flex flex-wrap justify-center space-x-4 mb-2 sm:mb-0" id="nav-links">
+                <!-- Navigasjonlenker genereres av JS -->
+            </div>
+            <!-- Språknapper -->
+            <div class="flex space-x-2 mt-2 sm:mt-0" id="lang-buttons">
+                <!-- Språknapper genereres av JS -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hovedinnhold -->
+    <main class="container mx-auto p-6 mt-4" id="main-content">
+        <!-- Sideinnhold genereres av JS -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+        <p id="footer-text"></p>
+    </footer>
+
+    <script>
+        // Translation object containing all text content in Norwegian and English
+        const translations = {
+            no: {
+                common: {
+                    appTitle: "Mannen som sluttet å eldes",
+                    home: "Hjem",
+                    longevity: "Lang levetid",
+                    relationships: "Forhold & Tap",
+                    philosophy: "Filosofi & Mening",
+                    writing: "Skriving & Arv",
+                    footerText: "© 2024 Utforsking av 'Mannen som sluttet å eldes'",
+                    langNorwegian: "Norsk",
+                    langEnglish: "Engelsk",
+                },
+                homePage: {
+                    welcomeTitle: "Velkommen til Williams Verden",
+                    intro: "Dykk ned i den fascinerende historien om William, mannen som sluttet å eldes. Denne appen er en interaktiv utforskning av hans liv, tap, filosofiske refleksjoner og søken etter mening i en verden som stadig endrer seg.",
+                    bookChallenge: "Boken 'Mannen som sluttet å eldes' av Øivind H. Solheim utfordrer leserne til å vurdere sin egen arv og hvilken innvirkning de ønsker å etterlate seg.",
+                    cardLongevityTitle: "Lang levetid",
+                    cardLongevityDesc: "Utforsk Williams reise med digital bevissthet og vitenskapen bak aldring.",
+                    cardRelationshipsTitle: "Forhold & Tap",
+                    cardRelationshipsDesc: "Opplev Williams dype forhold til Lina og Sarah, og hans møte med sorg.",
+                    cardPhilosophyTitle: "Filosofi & Mening",
+                    cardPhilosophyDesc: "Dykk ned i Williams tanker om liv, død, ensomhet og jakten på mening.",
+                    cardWritingTitle: "Skriving & Arv",
+                    cardWritingDesc: "Lær om Williams skriveprosess og hvordan han skaper sin egen varige arv.",
+                },
+                longevityPage: {
+                    title: "Lang levetid og Vitenskap",
+                    intro: "Williams reise inn i digital bevissthet og vitenskapen bak aldring er sentral i hans historie. Han utforsker mulighetene for å forlenge menneskelivet og de etiske spørsmålene det reiser.",
+                    section1Title: "Utover bevissthetens slør (Kapittel 1)",
+                    section1P1: "William nærmer seg sitt niende tiår og våger seg inn i ukjent terreng – ikke et fysisk landskap, men en eksistensiell grense. I et laboratorium, omgitt av surrende maskiner og flimrende skjermer, forbereder han seg på å overskride dødelighetens grep gjennom nevrale digitalisering.",
+                    section1P2: "Dr. Evelyn Archer, en pionon i nevrale digitalisering, veileder ham. Prosessen innebærer å kartlegge hans konnektom med enestående detaljer, slik at alle nevrale baner, synaptiske forbindelser, minner, tanker og følelser blir digitalisert og transplantert inn i en virtuell eksistens.",
+                    section1Quote: `"William forestilte seg sin bevissthet drive gjennom den digitale eteren, frigjort fra begrensningene i sin aldrende fysiske form."`,
+                    section2Title: "Aldringens vitenskap (Kapittel 3)",
+                    section2P1: "Williams fascinasjon for aldring ble dypere med hver diskusjon han hadde med Dr. Archer og hennes assistent, Dr. Elena Raja. De forklarer at aldring ikke bare handler om antall år, men om endringer i cellene våre, påvirket av både genetikk og miljø.",
+                    section2P2: "Epigenetikk, som Dr. Raja forklarer, er som en bibliotekar som bestemmer hvilke gener som skal 'leses', noe som påvirker celleatferd og kan føre til tilstander som kreft. De understreker at livsstilsvalg som å unngå røyking og opprettholde en sunn vekt kan bremse aldringsprosessen.",
+                    section2Quote: `"Det handler ikke bare om antall år vi eksisterer, men også om hvor godt vi opprettholder helsen vår."`,
+                    section3Title: "Den digitale guiden til lang levetid (Kapittel 7)",
+                    section3P1: "William møter Dr. Elena Raja, en AI-ekspert, for å forstå hvordan teknologi kan støtte hans søken etter lang levetid. AI kan tilby personlig helseveiledning ved å analysere helsehistorikk, gener og dagligliv for å skreddersy en helseplan.",
+                    section3P2: "I tillegg kan AI gi emosjonell støtte, gjenkjenne stress og angst, og tilby mindfulness-øvelser eller avslapningsteknikker. Den er også utmerket til tidlig oppdagelse av helseproblemer og gir en helhetlig tilnærming ved å integrere informasjon fra alle helsepersonell.",
+                    section3Quote: `"AI kan tilpasses for å hjelpe deg på alle områder av livet ditt, og lede deg mot valg som forbedrer din generelle helse og levetid."`,
+                    section4Title: "Mannen som sluttet å eldes (Kapittel 59)",
+                    section4P1: "Nærmere nittifem år gammel reflekterer William over sitt ekstraordinære liv. Hans fysikk har trosset de vanlige tegnene på aldring, og hans sinn forblir like levende og nysgjerrig som alltid. Han ser ikke på seg selv som en anomali, men som et bevis på menneskeåndens varige styrke.",
+                    section4P2: "Williams forlengede levetid har gitt ham et uvanlig perspektiv på livet, slik at han kan observere samfunnsendringer, trosystemers fremvekst og fall, og teknologiens ubøyelige fremgang. Han anerkjenner at kjernen i et meningsfylt liv er konstant: den ligger i forholdene vi dyrker, søken etter kunnskap og de daglige gledene livet tilbyr.",
+                    section4Quote: `"Hans alder, selv om den er bemerkelsesverdig, definerer ham ikke. I stedet er det hans livsglede, hans umettelige nysgjerrighet og hans urokkelige tro på kjærlighetens og menneskelig tilknytnings kraft som virkelig kjennetegner mannen som sluttet å eldes."`,
+                },
+                relationshipsPage: {
+                    title: "Forhold og Tap",
+                    intro: "Williams liv er dypt preget av hans forhold til Lina og Sarah, og den dype sorgen han opplever ved deres tap. Disse kapitlene utforsker kjærlighetens kompleksitet, tapets absurditet og veien til helbredelse.",
+                    section1Title: "Sarah drar (Kapittel 2)",
+                    section1P1: "Sarahs død etterlater et tomrom i Williams liv. Rommet, som tidligere var et tilfluktssted, fremhever nå tomheten. William sitter på sengekanten, blikket festet på den delvis pakkede kofferten. Stillheten, en gang en trøst, føles nå kvelende.",
+                    section1P2: "Deres siste samtale handlet om livet, inspirert av eksistensialistiske filosofer. Sarah hadde bragt lys til hans ensomme verden i årevis. Hennes fravær er nå et spøkelsesaktig følge, og minner ham om livets skjørhet.",
+                    section1Quote: `"Hennes fravær var håndgripelig, og ga gjenklang av livets skjørhet."`,
+                    section2Title: "Hennes fravær var et fravær av lys (Kapittel 14)",
+                    section2P1: "Etter Sarahs bortgang virket Williams verden fargeløs. Latteren som en gang fylte hjemmet deres, hadde falmet inn i en urovekkende stillhet. Hvert rom, hvert hjørne av deres felles rom, var gjennomsyret av minner, nå frosset i tid.",
+                    section2P2: "William søkte trøst i å gå turer, og gjenbesøkte steder han og Sarah hadde verdsatt. Disse stedene, nå stille, ga fortsatt gjenklang med ekkoene av deres glede. Han innså at hans reise ikke handlet om å flykte fra sorg, men om å finne en måte å leve med den på.",
+                    section2Quote: `"Hans turer avslørte at selv uten lys, kunne varme, slektskap og sjansen for nye begynnelser fortsatt finnes."`,
+                    section3Title: "Han snakker med Lina (Kapittel 28)",
+                    section3P1: "William snakker med Lina mens han går gjennom huset, og hvert rom blir et hellig sted der deres fortid møter hans nåtid. Fotografiene på veggene, som fanger flyktige øyeblikk, forteller historier fra livet de delte.",
+                    section3P2: "Han forteller Lina om sine dypeste angrer og sine urealiserte drømmer. Noen ganger ler han til og med, og tenker på en vits hun en gang fortalte. Det er i disse øyeblikkene, mellom latter og tårer, at han føler henne nærmest.",
+                    section3Quote: `"I dette huset, hvor Linas essens henger igjen, lærer han å leve med sitt tap. Det er ikke en byrde, men en hyllest til kjærligheten de delte."`,
+                    section4Title: "Livet går videre (Kapittel 58)",
+                    section4P1: "Et år har gått siden Sarahs bortgang, og William er igjen alene. Hjemmet, som tidligere var fylt med liv og fellesskap, er nå stille. William hadde ikke forestilt seg en ensom tilværelse etter tiår med samvær med sine kjære. Først Lina, og nå Sarah.",
+                    section4P2: "For å avverge ensomhet og bevare sin mentale helse, søker William tilflukt i naturen. Han legger ut på lange turer på landet, der naturens prakt og rytmen av hans fotspor beroliger tankene hans. Han innser at hans turer er mer enn en tidsfordriv; de er hans forbindelse til verden og til minnene om hans kjære.",
+                    section4Quote: `"Det er ikke bra for en å være alene. Vi trenger andres tilstedeværelse for å fullt ut oppleve livet, for å føle oss tilknyttet og for å oppdage lykke i vårt vesen."`,
+                },
+                philosophyPage: {
+                    title: "Filosofi og Mening",
+                    intro: "William reflekterer dypt over livets store spørsmål: døden, ensomheten, og hvordan man finner mening i en tilsynelatende likegyldig verden. Hans samtaler med Lina og Sarah utforsker eksistensialistiske tanker og menneskets søken etter tilhørighet.",
+                    section1Title: "Prologen - Hvordan forlenge menneskelivet",
+                    section1P1: "I et stille, hemmelig rom, dypt inne i seg selv, reflekterer William over menneskelig eksistens. Han er omgitt av bøker, sine personlige tidskapsler, som lover visdom eller en flukt fra kaoset utenfor.",
+                    section1P2: "Han undrer seg over hvordan hver bok er en verden i seg selv, et fristed for forskjellige stemmer og historier, som representerer menneskelig erfaring. Han ser en forbindelse til de utallige liv og følelser som er bundet innenfor disse sidene.",
+                    section1Quote: `"Jeg tenker på menneskelig eksistens, det uforståelige, og den uendelig store menneskelige reisen. Jeg er en av de store svermene, som alle andre, men likevel ulik alle andre."`,
+                    section2Title: "Eksistensens paradoks (Kapittel 9)",
+                    section2P1: "I det dempede rommet mellom våken og søvn befinner William seg i et paradoks. Han er levende, men likevel preget av dødens essens, og flyter i denne skumringssonen som strekker seg mellom hjerteslagene og stillheten som følger.",
+                    section2P2: "I denne liminale tilstanden kan William snakke med Lina og Sarah. Deres tilstedeværelse er mer levende her enn i hans minner. De snakker i et rike ubundet av tid eller fysisk rom. Han innser at han ikke er begrenset til binæren av liv og død, men lever i overlappet av et Venn-diagram, og deltar i begge verdener.",
+                    section2Quote: `"Døden er bare en dør, William. Den åpner for en annen måte å være på."`,
+                    section3Title: "En stjerneskudd i universet (Kapittel 22)",
+                    section3P1: "William reflekterer over menneskehetens ensomhet i det enorme universet. Han ser mennesker som stjerneskudd – flyktige lysglimt i endeløs mørke. Han spør seg om ensomhet er en refleksjon av det grenseløse kosmos i vår egen sjel.",
+                    section3P2: "Han innser at i sin søken etter å forstå sin plass i det store bildet, overser mennesker ofte de små gledene og sorgene som former livene deres. Verdien av menneskelig tilknytning blir tydelig for ham: det er når mennesker forbinder seg med hverandre, overvinner ensomheten som skiller dem, at de finner sin rette plass i universet.",
+                    section3Quote: `"Våre sjeler møtes, våre ord, smil og tårer deles, og avslører meningen med vår eksistens."`,
+                    section4Title: "Absurditeten i 'Hva om' (Kapittel 29)",
+                    section4P1: "William og Lina diskuterer absurditeten i å klage og skylde på andre. De innser at dette er skadelig for et moralsk oppreist liv. Mennesker eksisterer sjelden i fullstendig isolasjon, og sliter ofte med å akseptere livet som det er.",
+                    section4P2: "De forstår at de kan velge hvordan de forholder seg til omstendighetene sine – enten å kjempe innenfor livets begrensninger eller å slippe taket og akseptere livet som det er, med fokus på det de kan påvirke.",
+                    section4Quote: `"Livet, innser han, er ikke bare en lineær rekke hendelser, en samling flyktige øyeblikk som oppløses i tomrommet. I stedet ligner det et rikt billedvev, vevd med tråder av muligheter."`,
+                    section5Title: "I dalens stillhet (Kapittel 60)",
+                    section5P1: "I dalens stillhet, langt fra byens larm, står William – en søker etter solnedganger, som stadig utforsker soloppgangens gåte. Han vandrer alene, tankene hans er hans eneste følgesvenner, og han dykker ned i de eksistensielle spørsmålene som har hjemsøkt ham siden han var ung.",
+                    section5P2: "Han tenker på Albert Camus' filosofier, hvis skrifter om livet og hvordan vi gjør vårt beste i jakten på mening midt i et tilsynelatende likegyldig univers. Han stopper, ser på dalen nedenfor, og undrer seg over eksistensens absurditet.",
+                    section5Quote: `"Camus, som avviste universell mening, fant trøst i livets absurde dans, i trassig aksept."`,
+                },
+                writingPage: {
+                    title: "Skriving og Arv",
+                    intro: "Williams reise som forfatter er en dyp utforskning av hans indre verden og en måte å skape en varig arv. Han bruker skriving til å bearbeide sorg, finne mening og dele sin visdom med verden.",
+                    section1Title: "Skrivegleden (Kapittel 4)",
+                    section1P1: "William sitter ved skrivebordet sitt, omgitt av rommets stillhet. Han forsøker å fatte den flyktige ideen som nettopp streifet tankene hans, men den unnslipper ham. Å skrive gjør ham lykkelig fordi det lar ham dykke ned i følelsene sine og alt som har skjedd i livet hans, spesielt tidene med sin kjære, Lina.",
+                    section1P2: "Han ser døden som en plottvist, en måte å holde livet interessant på. Lina og William finner balanse i sine forskjeller, og Lina minner ham om å finne humor selv i det dystre.",
+                    section1Quote: `"Skriving er en glede. Det er som om vi får skape våre egne små verdener der alt er mulig."`,
+                    section2Title: "Å skrive historien om hans liv (Kapittel 25)",
+                    section2P1: "William har jobbet hardt med å skrive sin livshistorie. Skriving gjør ham lykkelig fordi det lar ham dykke ned i følelsene sine og alt som har skjedd i livet hans, spesielt tidene med sin kjære, Lina.",
+                    section2P2: "Han mener at livet er mer enn bare hans erfaringer; det er like mange forskjellige liv som det er mennesker på jorden. Han vet at alle har sine egne historier, selv om han ikke vet mye om de fleste av dem. Skriving trekker ham nærmere sitt sanne jeg.",
+                    section2Quote: `"Det mest avgjørende aspektet er å utnytte tiden fra fødsel til død fullt ut. Hans mål er å leve livet til det fulle og oppdage dets mening."`,
+                    section3Title: "Nye begynnelser (Kapittel 47)",
+                    section3P1: "Da høsten nærmet seg, vendte Williams tanker seg mot det som lå foran. Samfunnshagen hadde blomstret til et levende aktivitetssenter, og den nyetablerte skolehagen trivdes. Han følte en dyp følelse av tilfredshet fra sine prestasjoner.",
+                    section3P2: "Etter nesten et år brukt på å skrive, revidere og perfeksjonere manuskriptet sitt, bestemte William seg for å selvpublisere boken sin. Han lanserte boken sin, 'Livets hage: Refleksjoner over kjærlighet, tap og fornyelse,' om våren.",
+                    section3Quote: `"I det øyeblikket, omgitt av det blomstrende livet de hadde dyrket sammen, innså William at en kommersiell suksess som forfatter var uviktig, og døden var ikke en konklusjon, men en metamorfose."`,
+                    section4Title: "Epilog - Arven man etterlater seg",
+                    section4P1: "Prosjektet, kalt 'Evighetens arv', blir Williams siste gave til verden. Det handler ikke bare om å forlenge livet, men om å berike det, og sikre at essensen av hvem han var, kan fortsette å inspirere og provosere tanker lenge etter at hans fysiske tilstedeværelse har falmet.",
+                    section4P2: "Williams digitale bevissthet blir et symbol på hans varige arv, og tilbyr innsikt, visdom og kanskje et forsiktig dytt mot å gjøre verden til et litt bedre sted.",
+                    section4Quote: `"Williams historie, med sin blanding av personlige og filosofiske refleksjoner, utfordrer leserne til å vurdere sin egen arv og den innvirkningen de ønsker å etterlate seg."`,
+                },
+            },
+            en: {
+                common: {
+                    appTitle: "The Man Who Stopped Aging",
+                    home: "Home",
+                    longevity: "Longevity",
+                    relationships: "Relationships & Loss",
+                    philosophy: "Philosophy & Meaning",
+                    writing: "Writing & Legacy",
+                    footerText: "© 2024 Exploration of 'The Man Who Stopped Aging'",
+                    langNorwegian: "Norwegian",
+                    langEnglish: "English",
+                },
+                homePage: {
+                    welcomeTitle: "Welcome to William's World",
+                    intro: "Dive into the fascinating story of William, the man who stopped aging. This app is an interactive exploration of his life, loss, philosophical reflections, and quest for meaning in a constantly changing world.",
+                    bookChallenge: "The book 'The Man Who Stopped Aging' by Øivind H. Solheim challenges readers to consider their own legacy and the impact they wish to leave behind.",
+                    cardLongevityTitle: "Longevity",
+                    cardLongevityDesc: "Explore William's journey with digital consciousness and the science behind aging.",
+                    cardRelationshipsTitle: "Relationships & Loss",
+                    cardRelationshipsDesc: "Experience William's deep relationships with Lina and Sarah, and his encounter with grief.",
+                    cardPhilosophyTitle: "Philosophy & Meaning",
+                    cardPhilosophyDesc: "Delve into William's thoughts on life, death, loneliness, and the pursuit of meaning.",
+                    cardWritingTitle: "Writing & Legacy",
+                    cardWritingDesc: "Learn about William's writing process and how he creates his own lasting legacy.",
+                },
+                longevityPage: {
+                    title: "Longevity and Science",
+                    intro: "William's journey into digital consciousness and the science behind aging is central to his story. He explores the possibilities of extending human life and the ethical questions it raises.",
+                    section1Title: "Beyond the Veil of Consciousness (Chapter 1)",
+                    section1P1: "Approaching his ninth decade, William ventures into unknown territory – not a physical landscape, but an existential frontier. In a laboratory, surrounded by humming machinery and flickering screens, he prepares to transcend mortality's grasp through neural digitization.",
+                    section1P2: "Dr. Evelyn Archer, a pioneer in neural digitization, guides him. The process involves mapping his connectome with unprecedented detail, allowing every neural pathway, synaptic connection, memory, thought, and emotion to be digitized and transplanted into a virtual existence.",
+                    section1Quote: `"William imagined his consciousness drifting through the digital ether, unfettered by the limitations of his aging physical form."`,
+                    section2Title: "The Science of Aging (Chapter 3)",
+                    section2P1: "William's fascination with aging deepened with each discussion he had with Dr. Archer and her assistant, Dr. Elena Raja. They explain that aging is not merely about the number of years, but about changes in our cells, influenced by both genetics and environment.",
+                    section2P2: "Epigenetics, as Dr. Raja explains, is like a librarian deciding which genes to 'read,' influencing cell behavior and potentially leading to conditions like cancer. They emphasize that lifestyle choices such as avoiding smoking and maintaining a healthy weight can slow down the aging process.",
+                    section2Quote: `"It’s not just about the number of years we exist, but also about how well we maintain our health."`,
+                    section3Title: "The Digital Guide to Longevity (Chapter 7)",
+                    section3P1: "William meets Dr. Elena Raja, an AI expert, to understand how technology can support his quest for longevity. AI can offer personalized health guidance by analyzing health history, genes, and daily life to tailor a health plan.",
+                    section3P2: "Additionally, AI can provide emotional support, recognizing stress and anxiety, and offering mindfulness exercises or relaxation techniques. It's also excellent for early detection of health issues and provides a holistic approach by integrating information from all healthcare providers.",
+                    section3Quote: `"AI can be customized to help you in all areas of your life, leading you towards choices that improve your overall health and longevity."`,
+                    section4Title: "The Man Who Stopped Aging (Chapter 59)",
+                    section4P1: "Approaching ninety-five, William reflects on his extraordinary life. His physique has defied the usual signs of aging, and his mind remains as vibrant and curious as ever. He sees himself not as an anomaly, but as a testament to the enduring strength of the human spirit.",
+                    section4P2: "William's prolonged existence has given him an unusual perspective on life, allowing him to observe societal shifts, the rise and fall of belief systems, and the relentless march of technology. He recognizes that the core of a meaningful life remains constant: it lies in the relationships we cultivate, the pursuit of knowledge, and the daily joys life offers.",
+                    section4Quote: `"His age, while remarkable, does not define him. Instead, it is his zest for life, his insatiable curiosity, and his unwavering belief in the power of love and human connection that truly characterize the man who stopped aging."`,
+                },
+                relationshipsPage: {
+                    title: "Relationships and Loss",
+                    intro: "William's life is deeply marked by his relationships with Lina and Sarah, and the profound grief he experiences from their loss. These chapters explore the complexity of love, the absurdity of loss, and the path to healing.",
+                    section1Title: "Sarah Departs (Chapter 2)",
+                    section1P1: "Sarah's death leaves a void in William's life. The room, once a sanctuary, now highlights the emptiness. William sits on the edge of the bed, his gaze fixed on the half-packed suitcase. The silence, once a comfort, now feels suffocating.",
+                    section1P2: "Their last conversation was about life, inspired by existential philosophers. Sarah had brought light to his solitary world for years. Her absence is now a ghostly presence, reminding him of life's fragility.",
+                    section1Quote: `"Her absence was palpable, reverberating with life's fragility."`,
+                    section2Title: "Her Absence Was an Absence of Light (Chapter 14)",
+                    section2P1: "After Sarah's passing, William's world seemed color-drained. The laughter that once filled their home had faded into an unsettling silence. Every room, every corner of their shared space, was imbued with memories, now frozen in time.",
+                    section2P2: "William sought solace in walks, revisiting places he and Sarah had cherished. These places, now quiet, still resonated with the echoes of their joy. He realized his journey wasn't about escaping grief, but about finding a way to live with it.",
+                    section2Quote: `"His walks revealed that even without light, warmth, kinship, and the chance for new beginnings could still be found."`,
+                    section3Title: "He Talks to Lina (Chapter 28)",
+                    section3P1: "William talks to Lina as he walks through the house, each room becoming a sacred space where their past meets his present. The photographs on the walls, capturing fleeting moments, tell stories of the life they shared.",
+                    section3P2: "He recounts to Lina his deepest regrets and his unrealized dreams. Sometimes he even laughs, thinking of a joke she once told. It is in these moments, between laughter and tears, that he feels her closest.",
+                    section3Quote: `"In this house, where Lina's essence lingers, he learns to live with his loss. It is not a burden, but a tribute to the love they shared."`,
+                    section4Title: "Life Goes On (Chapter 58)",
+                    section4P1: "A year has passed since Sarah's demise, and William is again alone. The home, once filled with life and companionship, is now silent. William had not imagined a solitary existence after decades of companionship with his loved ones. First Lina, and now Sarah.",
+                    section4P2: "To ward off loneliness and preserve his mental health, William seeks refuge in nature. He embarks on long walks in the countryside, where the splendor of nature and the rhythm of his footsteps calm his mind. He realizes his walks are more than a pastime; they are his connection to the world and to the memories of his loved ones.",
+                    section4Quote: `"It is not good for one to be alone. We need the presence of others to fully experience life, to feel connected, and to discover happiness in our being."`,
+                },
+                philosophyPage: {
+                    title: "Philosophy and Meaning",
+                    intro: "William deeply reflects on life's big questions: death, loneliness, and how to find meaning in a seemingly indifferent world. His conversations with Lina and Sarah explore existential thoughts and humanity's quest for belonging.",
+                    section1Title: "Prologue - How to Prolong Human Life",
+                    section1P1: "In a quiet, secret room, deep within himself, William reflects on human existence. He is surrounded by books, his personal time capsules, promising wisdom or an escape from the chaos outside.",
+                    section1P2: "He wonders how each book is a world in itself, a sanctuary for different voices and stories, representing human experience. He sees a connection to the myriad lives and emotions bound within these pages.",
+                    section1Quote: `"I think of human existence, the unfathomable, and the infinitely vast human journey. I am one of the great swarms, like everyone else, yet unlike everyone else."`,
+                    section2Title: "The Paradox of Existence (Chapter 9)",
+                    section2P1: "In the muted space between waking and sleep, William finds himself in a paradox. He is alive, yet marked by the essence of death, floating in this twilight zone that stretches between heartbeats and the silence that follows.",
+                    section2P2: "In this liminal state, William can speak with Lina and Sarah. Their presence is more vivid here than in his memories. They converse in a realm unbound by time or physical space. He realizes he is not confined to the binary of life and death, but lives in the overlap of a Venn diagram, partaking in both worlds.",
+                    section2Quote: `"Death is just a door, William. It opens to another way of being."`,
+                    section3Title: "A Shooting Star in the Universe (Chapter 22)",
+                    section3P1: "William reflects on humanity's solitude in the vast universe. He sees humans as shooting stars – fleeting flashes of light in endless darkness. He wonders if loneliness is a reflection of the boundless cosmos within our own souls.",
+                    section3P2: "He realizes that in their quest to understand their place in the big picture, humans often overlook the small joys and sorrows that shape their lives. The value of human connection becomes clear to him: it is when humans connect with each other, overcoming the solitude that separates them, that they find their rightful place in the universe.",
+                    section3Quote: `"Our souls meet, our words, smiles, and tears are shared, revealing the meaning of our existence."`,
+                    section4Title: "The Absurdity of 'What If' (Chapter 29)",
+                    section4P1: "William and Lina discuss the absurdity of complaining and blaming others. They innse that this is detrimental to a morally upright life. Humans rarely exist in complete isolation, and often struggle to accept life as it is.",
+                    section4P2: "They understand that they can choose how they relate to their circumstances – either to fight within life's limitations or to let go and accept life as it is, focusing on what they can influence.",
+                    section4Quote: `"Life, he realizes, is not merely a linear series of events, a collection of fleeting moments dissolving into the void. Instead, it resembles a rich tapestry, woven with threads of possibilities."`,
+                    section5Title: "In the Valley's Silence (Chapter 60)",
+                    section5P1: "In the valley's silence, far from the city's clamor, stands William – a seeker of sunsets, perpetually exploring the enigma of dawn. He wanders alone, his thoughts his only companions, delving into the existential questions that have haunted him since youth.",
+                    section5P2: "He ponders the philosophies of Albert Camus, whose writings on life and how we do our best in the pursuit of meaning amidst a seemingly indifferent universe. He pauses, gazing at the valley below, pondering the absurdity of existence.",
+                    section5Quote: `"Camus, who rejected universal meaning, found solace in life's absurd dance, in defiant acceptance."`,
+                },
+                writingPage: {
+                    title: "Writing and Legacy",
+                    intro: "William's journey as a writer is a deep exploration of his inner world and a way to create a lasting legacy. He uses writing to process grief, find meaning, and share his wisdom with the world.",
+                    section1Title: "The Joy of Writing (Chapter 4)",
+                    section1P1: "William sits at his desk, surrounded by the room's silence. He tries to grasp the fleeting idea that just grazed his thoughts, but it eludes him. Writing makes him happy because it allows him to delve into his emotions and everything that has happened in his life, especially the times with his beloved, Lina.",
+                    section1P2: "He sees death as a plot twist, a way to keep life interesting. Lina and William find balance in their differences, and Lina reminds him to find humor even in the grim.",
+                    section1Quote: `"Writing is a joy. It's as if we get to create our own little worlds where anything is possible."`,
+                    section2Title: "Writing the Story of His Life (Chapter 25)",
+                    section2P1: "William has been working hard on writing his life story. Writing makes him happy because it allows him to delve into his emotions and everything that has happened in his life, especially the times with his beloved, Lina.",
+                    section2P2: "He believes that life is more than just his experiences; there are as many different lives as there are people on earth. He knows that everyone has their own stories, even if he doesn't know much about most of them. Writing draws him closer to his true self.",
+                    section2Quote: `"The most crucial aspect is to fully utilize the time from birth to death. His goal is to live life to the fullest and discover its meaning."`,
+                    section3Title: "New Beginnings (Chapter 47)",
+                    section3P1: "As autumn approached, William's thoughts turned to what lay ahead. The community garden had blossomed into a vibrant hub of activity, and the newly established school garden thrived. He felt a deep sense of satisfaction from his achievements.",
+                    section3P2: "After almost a year spent writing, revising, and perfecting his manuscript, William decided to self-publish his book. He launched his book, 'The Garden of Life: Reflections on Love, Loss, and Renewal,' in the spring.",
+                    section3Quote: `"In that moment, surrounded by the flourishing life they had cultivated together, William realized that a commercial success as a writer was unimportant, and death was not a conclusion, but a metamorphosis."`,
+                    section4Title: "Epilogue - The Legacy One Leaves Behind",
+                    section4P1: "The project, named 'The Legacy of Eternity,' becomes William's final gift to the world. It is not merely about prolonging life, but enriching it, ensuring that the essence of who he was can continue to inspire and provoke thought long after his physical presence has faded.",
+                    section4P2: "William's digital consciousness becomes a symbol of his lasting legacy, offering insights, wisdom, and perhaps a gentle nudge towards making the world a slightly better place.",
+                    section4Quote: `"William's story, with its blend of personal and philosophical reflections, challenges readers to consider their own legacy and the impact they wish to leave behind."`,
+                },
+            },
+        };
+
+        let currentLanguage = 'no'; // Initial language
+        let currentPage = 'home'; // Initial page
+
+        // Function to render a navigation link button
+        function renderNavLink(text, pageName) {
+            return `
+                <button
+                    onclick="navigateTo('${pageName}')"
+                    class="px-4 py-2 rounded-full text-white font-semibold hover:bg-blue-600 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                >
+                    ${text}
+                </button>
+            `;
+        }
+
+        // Function to render a theme card
+        function renderThemeCard(title, description, pageName, icon) {
+            return `
+                <div
+                    onclick="navigateTo('${pageName}')"
+                    class="bg-blue-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105 cursor-pointer flex flex-col items-center text-center"
+                >
+                    <div class="text-6xl mb-4">${icon}</div>
+                    <h3 class="text-2xl font-bold text-blue-700 mb-3">${title}</h3>
+                    <p class="text-gray-600">${description}</p>
+                </div>
+            `;
+        }
+
+        // Function to render a section
+        function renderSection(title, contentHtml, icon) {
+            return `
+                <div class="bg-gray-50 p-6 rounded-lg shadow-md mb-6 border-l-4 border-blue-500">
+                    <h3 class="text-2xl font-bold text-blue-700 mb-4 flex items-center">
+                        <span class="mr-3 text-3xl">${icon}</span> ${title}
+                    </h3>
+                    <div class="text-gray-600">${contentHtml}</div>
+                </div>
+            `;
+        }
+
+        // Page rendering functions
+        function renderHomePage() {
+            const t = translations[currentLanguage].homePage;
+            return `
+                <div class="bg-white p-8 rounded-xl shadow-2xl text-center">
+                    <h2 class="text-5xl font-extrabold text-blue-800 mb-6">${t.welcomeTitle}</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                        ${t.intro}
+                    </p>
+                    <p class="text-md text-gray-600 mb-10">
+                        ${t.bookChallenge}
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        ${renderThemeCard(t.cardLongevityTitle, t.cardLongevityDesc, 'longevity', '🧬')}
+                        ${renderThemeCard(t.cardRelationshipsTitle, t.cardRelationshipsDesc, 'relationships', '💔')}
+                        ${renderThemeCard(t.cardPhilosophyTitle, t.cardPhilosophyDesc, 'philosophy', '🧠')}
+                        ${renderThemeCard(t.cardWritingTitle, t.cardWritingDesc, 'writing', '✍️')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLongevityPage() {
+            const t = translations[currentLanguage].longevityPage;
+            return `
+                <div class="bg-white p-8 rounded-xl shadow-2xl">
+                    <h2 class="text-4xl font-extrabold text-blue-800 mb-6 text-center">${t.title}</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                        ${t.intro}
+                    </p>
+                    ${renderSection(t.section1Title, `<p class="mb-4">${t.section1P1}</p><p class="mb-4">${t.section1P2}</p><p class="font-semibold text-gray-700 italic">${t.section1Quote}</p>`, '🌌')}
+                    ${renderSection(t.section2Title, `<p class="mb-4">${t.section2P1}</p><p class="mb-4">${t.section2P2}</p><p class="font-semibold text-gray-700 italic">${t.section2Quote}</p>`, '🔬')}
+                    ${renderSection(t.section3Title, `<p class="mb-4">${t.section3P1}</p><p class="mb-4">${t.section3P2}</p><p class="font-semibold text-gray-700 italic">${t.section3Quote}</p>`, '🤖')}
+                    ${renderSection(t.section4Title, `<p class="mb-4">${t.section4P1}</p><p class="mb-4">${t.section4P2}</p><p class="font-semibold text-gray-700 italic">${t.section4Quote}</p>`, '⏳')}
+                </div>
+            `;
+        }
+
+        function renderRelationshipsPage() {
+            const t = translations[currentLanguage].relationshipsPage;
+            return `
+                <div class="bg-white p-8 rounded-xl shadow-2xl">
+                    <h2 class="text-4xl font-extrabold text-blue-800 mb-6 text-center">${t.title}</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                        ${t.intro}
+                    </p>
+                    ${renderSection(t.section1Title, `<p class="mb-4">${t.section1P1}</p><p class="mb-4">${t.section1P2}</p><p class="font-semibold text-gray-700 italic">${t.section1Quote}</p>`, '🚶‍♀️')}
+                    ${renderSection(t.section2Title, `<p class="mb-4">${t.section2P1}</p><p class="mb-4">${t.section2P2}</p><p class="font-semibold text-gray-700 italic">${t.section2Quote}</p>`, '🌑')}
+                    ${renderSection(t.section3Title, `<p class="mb-4">${t.section3P1}</p><p class="mb-4">${t.section3P2}</p><p class="font-semibold text-gray-700 italic">${t.section3Quote}</p>`, '🗣️')}
+                    ${renderSection(t.section4Title, `<p class="mb-4">${t.section4P1}</p><p class="mb-4">${t.section4P2}</p><p class="font-semibold text-gray-700 italic">${t.section4Quote}</p>`, '➡️')}
+                </div>
+            `;
+        }
+
+        function renderPhilosophyPage() {
+            const t = translations[currentLanguage].philosophyPage;
+            return `
+                <div class="bg-white p-8 rounded-xl shadow-2xl">
+                    <h2 class="text-4xl font-extrabold text-blue-800 mb-6 text-center">${t.title}</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                        ${t.intro}
+                    </p>
+                    ${renderSection(t.section1Title, `<p class="mb-4">${t.section1P1}</p><p class="mb-4">${t.section1P2}</p><p class="font-semibold text-gray-700 italic">${t.section1Quote}</p>`, '📖')}
+                    ${renderSection(t.section2Title, `<p class="mb-4">${t.section2P1}</p><p class="mb-4">${t.section2P2}</p><p class="font-semibold text-gray-700 italic">${t.section2Quote}</p>`, '🔄')}
+                    ${renderSection(t.section3Title, `<p class="mb-4">${t.section3P1}</p><p class="mb-4">${t.section3P2}</p><p class="font-semibold text-gray-700 italic">${t.section3Quote}</p>`, '🌠')}
+                    ${renderSection(t.section4Title, `<p class="mb-4">${t.section4P1}</p><p class="mb-4">${t.section4P2}</p><p class="font-semibold text-gray-700 italic">${t.section4Quote}</p>`, '🤔')}
+                    ${renderSection(t.section5Title, `<p class="mb-4">${t.section5P1}</p><p class="mb-4">${t.section5P2}</p><p class="font-semibold text-gray-700 italic">${t.section5Quote}</p>`, '🏞️')}
+                </div>
+            `;
+        }
+
+        function renderWritingPage() {
+            const t = translations[currentLanguage].writingPage;
+            return `
+                <div class="bg-white p-8 rounded-xl shadow-2xl">
+                    <h2 class="text-4xl font-extrabold text-blue-800 mb-6 text-center">${t.title}</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                        ${t.intro}
+                    </p>
+                    ${renderSection(t.section1Title, `<p class="mb-4">${t.section1P1}</p><p class="mb-4">${t.section1P2}</p><p class="font-semibold text-gray-700 italic">${t.section1Quote}</p>`, '🖋️')}
+                    ${renderSection(t.section2Title, `<p class="mb-4">${t.section2P1}</p><p class="mb-4">${t.section2P2}</p><p class="font-semibold text-gray-700 italic">${t.section2Quote}</p>`, '📜')}
+                    ${renderSection(t.section3Title, `<p class="mb-4">${t.section3P1}</p><p class="mb-4">${t.section3P2}</p><p class="font-semibold text-gray-700 italic">${t.section3Quote}</p>`, '🌱')}
+                    ${renderSection(t.section4Title, `<p class="mb-4">${t.section4P1}</p><p class="mb-4">${t.section4P2}</p><p class="font-semibold text-gray-700 italic">${t.section4Quote}</p>`, '✨')}
+                </div>
+            `;
+        }
+
+        // Core rendering function
+        function renderApp() {
+            const t = translations[currentLanguage].common;
+
+            // Update app title
+            document.getElementById('app-title').innerText = t.appTitle;
+
+            // Update nav links
+            const navLinksContainer = document.getElementById('nav-links');
+            navLinksContainer.innerHTML = `
+                ${renderNavLink(t.home, 'home')}
+                ${renderNavLink(t.longevity, 'longevity')}
+                ${renderNavLink(t.relationships, 'relationships')}
+                ${renderNavLink(t.philosophy, 'philosophy')}
+                ${renderNavLink(t.writing, 'writing')}
+            `;
+
+            // Update language buttons
+            const langButtonsContainer = document.getElementById('lang-buttons');
+            langButtonsContainer.innerHTML = `
+                <button
+                    onclick="setLanguage('no')"
+                    class="px-3 py-1 rounded-full text-white text-sm font-semibold transition duration-300 ease-in-out ${currentLanguage === 'no' ? 'bg-blue-600' : 'bg-blue-500 hover:bg-blue-400'}"
+                >
+                    ${t.langNorwegian}
+                </button>
+                <button
+                    onclick="setLanguage('en')"
+                    class="px-3 py-1 rounded-full text-white text-sm font-semibold transition duration-300 ease-in-out ${currentLanguage === 'en' ? 'bg-blue-600' : 'bg-blue-500 hover:bg-blue-400'}"
+                >
+                    ${t.langEnglish}
+                </button>
+            `;
+
+            // Update main content based on currentPage
+            const mainContentContainer = document.getElementById('main-content');
+            switch (currentPage) {
+                case 'home':
+                    mainContentContainer.innerHTML = renderHomePage();
+                    break;
+                case 'longevity':
+                    mainContentContainer.innerHTML = renderLongevityPage();
+                    break;
+                case 'relationships':
+                    mainContentContainer.innerHTML = renderRelationshipsPage();
+                    break;
+                case 'philosophy':
+                    mainContentContainer.innerHTML = renderPhilosophyPage();
+                    break;
+                case 'writing':
+                    mainContentContainer.innerHTML = renderWritingPage();
+                    break;
+                default:
+                    mainContentContainer.innerHTML = renderHomePage();
+            }
+
+            // Update footer text
+            document.getElementById('footer-text').innerText = t.footerText;
+        }
+
+        // Navigation function
+        function navigateTo(page) {
+            currentPage = page;
+            renderApp(); // Re-render the app to update content
+        }
+
+        // Language toggle function
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            renderApp(); // Re-render the app to update all text
+        }
+
+        // Initial render when the page loads
+        window.onload = renderApp;
+    </script>
+</body>
+</html>
